@@ -1,1 +1,356 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+/* Navbar */
+
+.nav-bar{
+    height: 102px;
+    width: 100%;
+    background-color: rgb(243, 74, 69);
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.image_log{
+    font-size: 2.5rem;
+    color: #fff;
+    position: relative;
+    right: 20px;
+    padding-top: 15px;
+}
+
+.logo_container{
+    text-align: center;    
+}
+
+#heading{
+    font-size: 2rem;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #fff;
+
+}
+
+/* Main to avoid overlay */
+
+.main{
+    margin-top: 100px;
+    /* position: fixed; */
+}
+
+/* Main Container */
+.main_container{
+    margin:110px auto 20px auto;
+    width: 70%;
+    background-color: black;
+    color: #fff;
+    padding: 50px 0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#para1{
+    background-color: #fff;
+    color: black;
+    font-size: 40px;
+    padding: 5px 50px; 
+    border-radius: 10px;
+    font-weight: 900;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.btn_main{
+    background-color: #eee45f;
+    font-size: 25px;
+    padding: 10px 50px; 
+    border-radius: 10px;
+    margin: 40px 0 0 0;
+}
+
+.btn_main:hover{
+    background-color: #fff;
+}
+
+.info1, .info2{
+    text-align: center;
+    padding: 15px;
+    font-size: 35px;
+    color: #2f9e0d;
+    font-weight: 900;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    animation: animate 1s linear infinite;
+    background-color: rgb(245, 196, 131);
+    margin:10px auto 20px auto;
+    width: 68%;
+    border-radius: 10px;
+}
+@keyframes animate {
+    0%{
+        opacity: 0.1;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.1;
+    }
+}
+
+.newsfeed{
+    margin: 30px auto 0px auto;
+    width: 70%;
+    background-color: black;
+    color: #fff;
+    padding: 8px 0;
+    border-radius: 10px;
+
+    /* text-align: center; */
+}
+
+.btn2{
+    font-size: 25px;
+    padding: 8px 20px; 
+    border-radius: 10px;
+    margin: 10px 0 0 0;
+}
+
+.btn1{
+    font-size: 25px;
+    padding: 8px 20px; 
+    border-radius: 10px;
+    margin: 10px 0 0 0;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#btn1_newsfeed{
+    background-color: #eee45f;
+}
+
+#btn2_newsfeed{
+    background-color: #fff;
+}
+
+.news_container{
+    margin: 10px auto;
+    width: 70%;
+    background-color: #fff;
+    padding: 10px;
+
+}
+
+.emptyCard{
+    background-color: rgb(164, 136, 241);
+    color: black;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 10px;
+    height: 140px;
+}
+
+#para2{
+    text-align: center;
+    font-size: 25px;
+    text-align: center;
+}
+.loadOne, .loadTwo{
+    background-color: rgb(164, 136, 241);
+    color: black;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+.pagination{
+    text-align: center;
+}
+.pagination a{
+    color: black;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+}
+
+.pagination a.active{
+    background-color: green;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.loadAuthor{
+    float:left;
+    font-size: 15px;
+}
+
+.loadCategory{
+    float:right;
+    font-size: 15px;
+}
+
+.loadNews{
+    /* float: bottom; */
+    padding: 30px 0 ;
+    font-size: 20px;
+}
+
+.insideBtn{
+    background-color: #f73513;
+    padding: 5px;
+    border-radius: 5px;
+    /* margin: 40px 0 20px 0; */
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+.insideBtn:hover{
+    background-color: #f05348;
+    cursor: pointer;
+}
+
+.loadOne a{
+    text-decoration: none;
+    color: black;
+}
+
+.loadTwo a{
+    text-decoration: none;
+    color: black;
+}
+
+
+.unlikeNews{
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+    color: #fff;
+    font-size: 25px;
+}
+
+.unlikeNews:hover{
+    color: red;
+    cursor: pointer;
+}
+
+
+
+
+.news_category{
+    margin: 0 auto;
+    width: 70%;
+    background-color: black;
+    color: #fff;
+    padding: 8px 0;
+    border-radius: 10px;
+}
+.cat_btn{
+    background-color: #eee45f;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.next {
+    padding: 5px;
+    background-color: aquamarine;
+}
+.previous {
+    padding: 5px;
+    background-color: aquamarine;
+    margin: 5px 15px 20px 0;
+}
+
+.saved_container{
+    margin: 0 auto;
+    width: 70%;
+    background-color: #fff;
+    padding: 10px;   
+
+}
+.savedOne, .savedTwo{
+    background-color: rgb(164, 136, 241);
+    color: black;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.savedAuthor{
+    float:left;
+}
+
+.savedCategory{
+    float:right;
+}
+
+.savedNews{
+    /* float: bottom; */
+    padding: 35px 0;
+}
+
+.savedUrl{
+    background-color: #f73513;
+    padding: 5px;
+    border-radius: 5px;
+    /* margin: 40px 0 20px 0; */
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+.likedNews{
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+    color: #fff;
+    font-size: 25px;
+}
+
+.likedNews:hover{
+    cursor: pointer;
+    color: #fff !important;
+}
+
+.savedOne a{
+    text-decoration: none;
+    color: black;
+}
+
+.savedUrl:hover{
+    background-color: #f05348;
+    cursor: pointer;
+}
+
+.previous, .next{
+    padding: 10px;
+    background-color: #f73513;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+.previous:hover{
+    cursor: pointer;
+    background-color: aquamarine;
+}
+
+.next:hover{
+    cursor: pointer;
+    background-color: aquamarine;
+}
+
+section{
+    height: 100%;
+    width: 100vw;
+    padding: 120px 0 0 0;
+
+}
 
