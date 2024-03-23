@@ -222,20 +222,20 @@ function clickSavedNews(mainData){
 
 
 //----Delete Saved News--------------
-// const btnUnlike = document.querySelector('likedNews');
-// savedContainer.addEventListener('click',(e)=>{
-//     const unlike = e.target.id;
-//     const unlikeval = document.getElementById(unlike);
-//     const idd = unlike.substring(0,unlike.length-1);
-//     let digit = Number(unlike.charAt(unlike.length-1));
-//     console.log(digit);
-//     if(idd.includes('unlike')){
-//         saveToLocalStorage.splice(digit,1);
-//         localStorage.setItem('LocalStorage', JSON.stringify(saveToLocalStorage));
-//         var retrievedData = localStorage.getItem("LocalStorage");
-//         mainData = JSON.parse(retrievedData);
-//         clickSavedNews(mainData);
-//     }
-// });
+const btnUnlike = document.querySelector('likedNews');
+savedContainer.addEventListener('click',(e)=>{
+    const unlike = e.target.id;
+    const idd = unlike.substring(0,unlike.length-1);
+    // console.log(idd);
+    if(idd.includes('unlike')){
+        let digit = Number(unlike.charAt(unlike.length-1));
+        console.log(digit,"selected");
+        var retrievedData1 = localStorage.getItem("LocalStorage");
+        var mainData1 = JSON.parse(retrievedData1);
+        mainData1.splice(digit,1);
+        localStorage.setItem('LocalStorage', JSON.stringify(mainData1));
+        loadSavedDataAuto();
+    }
+});
 
 
