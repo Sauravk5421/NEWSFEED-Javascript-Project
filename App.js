@@ -1,232 +1,166 @@
-const author1 = document.getElementById('author1');
-const category1 = document.getElementById('category1');
-const news1 = document.getElementById('news1');
-const url1 = document.getElementById('url1');
-
-const author2 = document.getElementById('author2');
-const category2 = document.getElementById('category2');
-const news2 = document.getElementById('news2');
-const url2 = document.getElementById('url2');
-
-const URL = 'https://content.newtonschool.co/v1/pr/64e3d1b73321338e9f18e1a1/inshortsnews';
-
-
 var initialVal = 0;
-var  selectedCategory = ["Business", "Sports", "World", "Politics", "Hatke", "Science", "Automobile"];
-const savedAllNews = [];
-const savedAllAuthor = [];
-const savedAllCategory = [];
-const savedAllUrl = [];
+var currPage = 1;
+var lastPage;
+
+var selectedCategory = ["India","Business", "Sports", "Technology", "Politics", "Hatke", "Startups","Entertainment", "International","Automobile"];
 const saveToLocalStorage = [];
-const unlikeNewsId = [];
-var mainData=[];
+let mainData = [];
+var category_length;
 var m=0;
 
-
-const  newsContainer = document.querySelector('.news_container');
+// ------------for news load Container fetech news-----------------------
+const  newsContainer = document.querySelector('.news-load-container');
+const URL = `https://content.newtonschool.co/v1/pr/64e3d1b73321338e9f18e1a1/inshortsnews`;
 
 async function getNewsData(initialVal){
     let response = await fetch(URL);
     let data = await response.json();
-  
     const filteredValue = data.filter((item)=>{
        return selectedCategory.includes(item.category);
     });
-    console.log(filteredValue);
-    if(filteredValue.length>0){
-        newsContainer.innerHTML =
-            `
-        <div class="loadOne">
-            <span class="loadAuthor" id="author1"> BY: <strong>${filteredValue[initialVal].author}</strong></span>
-            <span class="loadCategory" id="category1">CATEGORY: <strong>${filteredValue[initialVal].category}</strong></span>
-            <p class="loadNews" id="news1"> ${filteredValue[initialVal].content}</p>
-            <a  class = "insideBtn" id="url1" href= ${filteredValue[initialVal].url}> Read More</a> </br>
-            <i class="fa-solid fa-heart unlikeNews" id="heart1"></i>
-        </div>
+    category_length = filteredValue.length;
+    let finalValue = initialVal+10;
+    lastPage = category_length/10;
     
-        <div class="loadTwo">
-            <span class="loadAuthor" id="author2"> BY: <strong>${filteredValue[initialVal+1].author}</strong></span>
-            <span class="loadCategory" id="category2">CATEGORY: <strong>${filteredValue[initialVal+1].category}</strong></span>
-            <p class="loadNews" id="news2"> ${filteredValue[initialVal+1].content}</p>
-            <a class = "insideBtn" id="url2" href= ${filteredValue[initialVal+1].url}> Read More</a></br>
-            <i class="fa-solid fa-heart unlikeNews" id="heart2" ></i>
-            
-        </div>
-        `
+    checkLastPage();
+    if(lastPage>=currPage && filteredValue.length>0){
+        newsContainer.innerHTML = "";
+        if(category_length<finalValue){
+            finalValue = category_length;
+        }
+        for(let j=initialVal; j<finalValue; j++){
+            newsContainer.innerHTML += `
+            <div class="news-card">
+                <span class="loadAuthor" id="author"> BY: <strong>${filteredValue[j].author}</strong></span>
+                <span class="loadCategory" id="category">CATEGORY: <strong>${filteredValue[j].category}</strong></span>
+                <p class="loadNews" id="news"> ${filteredValue[j].content}</p>
+                <a  class = "insideBtn" id="url" href= ${filteredValue[j].url}> Read More</a>
+                <br/><i class="fa-solid fa-heart likedbtn" id="likedheart${j}"></i>
+            </div>  `
+        }
     }
-
 }
 
 getNewsData(initialVal);
 
-function counterIncrease(){
-    initialVal = initialVal+2;
-    if(initialVal>10){
-        initialVal = 0;
-    }
-    getNewsData(initialVal);
-}
-
-function counterDecrease(){
-    initialVal = initialVal-2;
-    if(initialVal<0){
-        initialVal = 0;
-    }
-    getNewsData(initialVal);
-}
-
-
-
-const next = document.querySelector('.next');
-const previous = document.querySelector('.previous');
-
-next.addEventListener('click',()=>{
-    counterIncrease();
-})
-
-previous.addEventListener('click',()=>{
-    counterDecrease();
-})
-
+// -----------Sort By Category---------------------
 
 const categoryAll = document.querySelector('.all_category');
-
+const categoryBtn = document.getElementsByClassName('category-btn');
 categoryAll.addEventListener('click',(event)=>{
     selectedCategory = event.target.value;
+    for(cl of categoryBtn){ cl.classList.remove("activebtn"); }
+    event.target.classList.add("activebtn");
     if(event.target.value == 'All'){
-        selectedCategory = ["Business", "Sports", "World", "Politics", "Hatke", "Science", "Automobile"];
-        getNewsData(0);
+        selectedCategory = ["India","Business", "Sports", "Technology", "Politics", "Hatke", "Startups","Entertainment", "International","Automobile"];
     }
-    getNewsData(initialVal);
+    currPage = 1; initialVal = 0;  getNewsData(initialVal);
 })
 
-//------------------Saved Container----------------------
-
+//------------------Save News Container----------------------
 
 newsContainer.addEventListener('click',(e)=>{
-    const like = e.target.id;
-    const val1 = document.getElementById(like);
-
-    if(e.target.className.includes('unlikeNews')){
-        val1.style.color = 'red'; 
-        // unlikeNewsId.push(e.target.id);     
-        funcSavedNews(e.target.id);
+    if(e.target.className.includes('likedbtn')){
+        const getId = e.target.id;
+        const likedClick  = document.getElementById(getId);
+        likedClick.style.color = "red";
+        var parentDiv = document.getElementById(getId).parentElement;  
+        const savedNewsObject = {
+            news: parentDiv.children[2].textContent,
+            author: parentDiv.children[0].textContent,
+            category: parentDiv.children[1].textContent,
+            url : parentDiv.children[3].href
+        };
+        //------------------Saved News Pused To LocalStorage----------------------
+        saveToLocalStorage.push(savedNewsObject);
+        localStorage.setItem('LocalStorage', JSON.stringify(saveToLocalStorage));
+        loadSavedDataAuto();
     }
 });
 
+//------------------Save News load auto----------------------
 
-function funcSavedNews(selectedID){
-    // console.log(selectedID);
-    if(selectedID.includes('heart1')){
-        // const clickedNewsId =  
-        const clickedNews = document.getElementById('news1');
-        const clickedAuthor = document.getElementById('author1');
-        const clickedCategory = document.getElementById('category1');
-        const clickedUrl = document.getElementById('url1');
-       
-        savedAllNews.push(clickedNews.textContent);
-        savedAllAuthor.push(clickedAuthor.textContent);
-        savedAllCategory.push(clickedCategory.textContent);
-        savedAllUrl.push(clickedUrl.href);
-        
-        const savedNewsObject = {
-                news: clickedNews.textContent,
-                author: clickedAuthor.textContent,
-                category: clickedCategory.textContent,
-                url : clickedUrl.href
-        };
-        
-        
-        saveToLocalStorage.push(savedNewsObject);
-        localStorage.setItem('LocalStorage', JSON.stringify(saveToLocalStorage));
-
-    } else if(selectedID.includes('heart2')){
-        const clickedNews = document.getElementById('news2');
-        const clickedAuthor = document.getElementById('author2');
-        const clickedCategory = document.getElementById('category2');
-        const clickedUrl = document.getElementById('url2');
-        savedAllNews.push(clickedNews.textContent);
-        savedAllAuthor.push(clickedAuthor.textContent);
-        savedAllCategory.push(clickedCategory.textContent);
-        savedAllUrl.push(clickedUrl.href);
-        const savedNewsObject = {
-            news: clickedNews.textContent,
-            author: clickedAuthor.textContent,
-            category: clickedCategory.textContent,
-            url : clickedUrl.href
-        };
-        saveToLocalStorage.push(savedNewsObject);
-        localStorage.setItem('LocalStorage', JSON.stringify(saveToLocalStorage));
-    }
-   
-    // var retrievedData = localStorage.getItem("LocalStorage");
-    // mainData = JSON.parse(retrievedData);
-    
-}
-
-const  savedContainer = document.querySelector('.saved_container');
-
+const  news_savedContainer = document.querySelector('.news-save-container');
 function loadSavedDataAuto(){
     var retrievedData = localStorage.getItem("LocalStorage");
     mainData = JSON.parse(retrievedData);
-    console.log(mainData);
     if(mainData.length==0){
-       
-        savedContainer.innerHTML =
-        `
-            <div class="emptyCard">
-                <p id="para2"> No Saved News Found </p>
-            </div>
-        `
+        news_savedContainer.innerHTML = `
+                <div class="emptyCard">
+                    <p id="card-text"> No Saved News Found </p>
+                </div>  `
     } else {
-        clickSavedNews(mainData);
+        news_savedContainer.innerHTML = "";
+        for(let i=0; i<mainData.length; i++){
+            news_savedContainer.innerHTML +=    ` 
+                <div class="save-card">
+                    <span class="save-Author" id="savedA1"> <strong>${mainData[i].author}</strong></span>
+                    <span class="save-Category" id="savedC1" > <strong>${mainData[i].category}</strong></span>
+                    <p class="save-News" id="savedN1"> ${mainData[i].news}</p>
+                    <a class = "save-Url" id="savedU1" href= ${mainData[i].url}> Read More</a></br>
+                    <i class="fa-solid fa-heart likedNews" id="unlike${i}" style="color: red;"></i>
+                </div>  `
+        }
     }
 }
 
 loadSavedDataAuto();
 
-let btnsavenews = document.getElementById('btn_newsSave');
-btnsavenews.addEventListener('click', ()=>{
-    loadSavedDataAuto();
-
+let main_containerBtn = document.querySelector('.load-news-btn');
+let btn_main_container = document.getElementsByClassName('btn-main-container');
+main_containerBtn.addEventListener('click', (e)=>{
+    for(cl of btn_main_container){  cl.classList.remove("activebtn2"); }
+    e.target.classList.add("activebtn2");
 }); 
 
-let btnsavenews1 = document.getElementById('btn_newsSave1');
-btnsavenews1.addEventListener('click', ()=>{
-    loadSavedDataAuto();
-});
+// ------------Pagination--------------
 
-let btn_news = document.getElementById('btn_newsLoad1');
+function counterIncrease(){
+    currPage = currPage+1;
+    initialVal = initialVal+10;
+    getNewsData(initialVal);
+    
+}
 
-btn_news.addEventListener('click',()=>{
-    getNewsData(0);
-});
+function counterDecrease(){
+    currPage = currPage-1;
+    initialVal = initialVal-10;
+    getNewsData(initialVal);
+   
+}
+
+const next_Btn = document.querySelector('.btn-next');
+const prev_Btn = document.querySelector('.btn-prev');
 
 
+next_Btn.addEventListener('click',()=>{
+    counterIncrease();
+})
 
-function clickSavedNews(mainData){
-    savedContainer.innerHTML = null;
-    for(let i=0; i<mainData.length; i++){
-        savedContainer.innerHTML +=` 
-        <div class="savedOne">
-            <span class="savedAuthor" id="savedA1"> <strong>${mainData[i].author}</strong></span>
-            <span class="savedCategory" id="savedC1" > <strong>${mainData[i].category}</strong></span>
-            <p class="savedNews" id="savedN1"> ${mainData[i].news}</p>
-            <a class = "savedUrl" id="savedU1" href= ${mainData[i].url}> Read More</a></br>
-            <i class="fa-solid fa-heart likedNews" id="unlike${i}" style="color: red;"></i>
-        </div>  `
+prev_Btn.addEventListener('click',()=>{  
+    counterDecrease();
+})
+
+function checkLastPage(){
+    if(currPage==1){
+        prev_Btn.disabled = true;
+    } else {
+        prev_Btn.disabled = false;
+    }
+    console.log(currPage,lastPage);
+    
+    if(currPage===lastPage){
+        next_Btn.disabled = true;
+    } else {
+        next_Btn.disabled = false;
     }
 }
 
-
-
-
 //----Delete Saved News--------------
 const btnUnlike = document.querySelector('likedNews');
-savedContainer.addEventListener('click',(e)=>{
+news_savedContainer.addEventListener('click',(e)=>{
     const unlike = e.target.id;
     const idd = unlike.substring(0,unlike.length-1);
-    // console.log(idd);
     if(idd.includes('unlike')){
         let digit = Number(unlike.charAt(unlike.length-1));
         console.log(digit,"selected");
@@ -237,5 +171,3 @@ savedContainer.addEventListener('click',(e)=>{
         loadSavedDataAuto();
     }
 });
-
-
