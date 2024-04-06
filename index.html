@@ -9,20 +9,26 @@
 </head>
 <body>
 
-    <div class="nav-bar">
+    <!-- ------Nav bar---------->
+
+    <nav class="nav-bar">
         <div class="logo_container">
             <i class="fa-solid fa-newspaper image_log"> N e w s</i>
             <h2 id="heading">All Shorts</h2>
         </div>
-    </div>
+    </nav>
+
+    <!-- ------Main Section---------->
 
     <div class="main">
 
+        <!-- ------Main Page---------->
+
         <div class="main_container">
-            <span id="para1">All SHORTS</span>
-            <div class="load_news">
-                <a href="#section1"> <button class="btn_main" id="btn_newsSave"> LOAD SAVED NEWS</button></a>
-                <a href="#section2"> <button class="btn_main" id="btn_newsLoad"> LOAD NEW NEWS </button></a>
+            <span id="heading-container">All SHORTS</span>
+            <div class="load-news-btn">
+                <a href="#section1"> <button class="btn-main-container " id="btn_newsSave"> LOAD SAVED NEWS</button></a>
+                <a href="#section2"> <button class="btn-main-container activebtn2" id="btn_newsLoad"> LOAD NEW NEWS </button></a>
             </div>
         </div>
     
@@ -34,57 +40,77 @@
             <p>STAY UPDATED</p>
         </div>
 
+        <!-- ------Main Page Section 1 Saved News---------->
+
         <section id="section1">
 
-            <div class="newsfeed" id="newsfeedSave">
-                <a href="#top"><button class="btn1"> All Shorts</button></a>
-                <button class="btn2" id="btn_newsSave1" style="background-color: #eee45f;"> SAVED NEWS</button>
+            <div id="news-save-menu">
+                <a href="#top"><button class="all-shorts-btn"> All Shorts</button></a>
+                <button class="save-load-btn" id="btn_newsSave1"> SAVED NEWS</button>
             </div>
-            <div class="saved_container" >
-                <div class="emptyCard">
-                    <p id="para2"> No Saved News Found </p>
-                </div>                
+            
+            <div class="news-save-container" >
+                <!-- <div class="emptyCard">
+                    <p id="card-text"> No Saved News Found </p>
+                </div>                 -->
             </div>
 
        </section>
 
+       <!-- ------Main Page Section 2 Latest News---------->
+
        <section id="section2">
 
-            <div class="news_category" id="newsfeedLoad">
+            <div id="news-load-menu">
                 <div class="cat_head">
-                    <a href="#top"><button class="btn1"> All Shorts</button></a>
-                    <button class="btn2" id="btn_newsLoad1" style="background-color: #eee45f;"> NEW NEWS</button>
+                    <a href="#top"><button class="all-shorts-btn"> All Shorts</button></a>
+                    <button class="save-load-btn" id="btn_newsLoad1"> NEW NEWS</button>
                 </div>
     
-                <div class="cat_select">
-                    <button class="btn2" id="btn1_newsfeed" > SELECT CATEGORY</button>
+                <div class="category-selection">
+                    <button class="save-load-btn"> SELECT CATEGORY</button>
                 </div>
     
                 <div class="all_category">
-                    <button class="cat_btn" value="Business"> BUSINESS</button>
-                    <button class="cat_btn" value="All"> ALL</button>
-                    <button class="cat_btn" value="Sports"> SPORTS</button>
-                    <button class="cat_btn" value="World"> WORLD</button>
-                    <button class="cat_btn" value="Politics">POLITICS</button>
-                    <button class="cat_btn" value="Hatke"> HATKE</button>
-                    <button class="cat_btn" value="Science"> SCIENCE</button>
-                    <button class="cat_btn" value="Automobile"> AUTOMOBILE</button>
+                    <button class="category-btn activebtn" value="All"> ALL</button>
+                    <button class="category-btn" value="India"> India</button>
+                    <button class="category-btn" value="Business"> Business</button>
+                    <button class="category-btn" value="Sports"> Sports</button>
+                    <button class="category-btn" value="Technology"> Technology</button>
+                    <button class="category-btn" value="Politics">Politics</button>
+                    <button class="category-btn" value="Hatke"> Hatke</button>
+                    <button class="category-btn" value="Startups"> Startups</button>
+                    <button class="category-btn" value="Entertainment"> Entertainment</button>
+                    <button class="category-btn" value="International"> International</button>
+                    <button class="category-btn" value="Automobile"> Automobile</button>
                 </div>
-    
             </div>
     
-            <div class="news_container" >
+            <div class="news-load-container" >
+
            
             </div>
     
             <div class="pagination">
-                <button class="previous"><< Previous</button>
-                <button class="next"> Next >></button>
+                <button class="btn-prev"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+                <button class="btn-next"> Next<i class="fa-solid fa-arrow-right"></i> </button>
             </div>
     
         </section>
 
     </div>
+
+    
+    <!-- ------Footer---------->
+
+    <div class="top">
+        <a href="#top">Go To Top</a>
+    </div>
+
+    <footer>
+        <div> All Right Reserved &copy 2024</div>
+    </footer>
+
     <script src="App.js"></script>
 </body>
 </html>
